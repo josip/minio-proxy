@@ -1,6 +1,6 @@
 # minio proxy
 
-> **Warning**
+> [!WARNING]  
 > Do not use this in production. This is a demo project.
 
 ## Running the proxy
