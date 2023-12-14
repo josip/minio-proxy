@@ -111,11 +111,7 @@ func (c *minioClient) uploadCommon(uploadID string, part int, bucket, filename, 
 		return "", err
 	}
 	req.Header.Add("Content-Type", contentType)
-	req.Header.Add("Content-Length", strconv.FormatInt(contentLength, 10))
 	req.ContentLength = contentLength
-
-	fmt.Println("upload req", uploadUrl)
-	fmt.Println("upload headers", req.Header)
 
 	resp, err := c.http.Do(req)
 	if err != nil {

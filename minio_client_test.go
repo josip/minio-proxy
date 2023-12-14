@@ -71,7 +71,13 @@ func newMockMinioServer(keyId, secret string) *mockMinioServer {
 				}
 				w.Header().Set("ETag", partID)
 			} else {
-				// save file
+				// NOTE this is always set within the test, but real minio server
+				// rejects PUT requests without the header
+				if r.ContentLength == 0 || len(r.Header.Get("Content-Length")) == 0 {
+					writeError(w, http.StatusBadRequest, errors.New("missing Content-Length header or it's 0"))
+					return
+				}
+
 				minio.Files[id] = &mockMinioFile{
 					ContentType:   r.Header.Get("Content-Type"),
 					ContentLength: r.ContentLength,
