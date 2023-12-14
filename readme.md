@@ -25,7 +25,24 @@ Finally start the proxy with:
 ```
 $ go install github.com/josip/minio-proxy/cmd/minio-proxy
 $ minio-proxy
+file server started at :4040
+- [PUT] /files/{filename}
+- [GET] /files/{filename}
 ```
+
+Files can be then uploaded with a `PUT /files/{filename}` and downloaded with `GET /files/{filename}`.
+
+For example with curl, this would look like:
+
+```
+# curl -X PUT -T original.png http://127.0.0.1:4040/files/image.png
+{"etag": "...", "id": "image.png"}
+# curl http://127.0.0.1:4040/files/image.png > downloaded.png
+[...]
+# diff -s original.png downloaded.png
+Files image.png and redownload.png are identical
+```
+
 
 ## Generating ENC_KEY and HMAC_KEY
 
