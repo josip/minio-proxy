@@ -29,7 +29,7 @@ $ minio-proxy
 
 ## Generating ENC_KEY and HMAC_KEY
 
-You can generate valid keys for encryption using `gensecrets` provided in the repo. Both keys are 32bit bit passwords derived with `scrypt` using [recommended parameters](https://pkg.go.dev/golang.org/x/crypto/scrypt#Key).
+You can generate valid 32B keys for encryption using `gensecrets` tool provided in the repo. The tool generates random 8B passwords and hashes them using `scrypt` with [recommended parameters](https://pkg.go.dev/golang.org/x/crypto/scrypt#Key).
 
 To use and install the tool:
 ```
