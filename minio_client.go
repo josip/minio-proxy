@@ -112,6 +112,10 @@ func (c *minioClient) uploadCommon(uploadID string, part int, bucket, filename, 
 	}
 	req.Header.Add("Content-Type", contentType)
 	req.Header.Add("Content-Length", strconv.FormatInt(contentLength, 10))
+	req.ContentLength = contentLength
+
+	fmt.Println("upload req", uploadUrl)
+	fmt.Println("upload headers", req.Header)
 
 	resp, err := c.http.Do(req)
 	if err != nil {
@@ -129,5 +133,5 @@ func (c *minioClient) uploadCommon(uploadID string, part int, bucket, filename, 
 		return "", err
 	}
 
-	return "", errors.New(string(respBody))
+	return "", fmt.Errorf("failed to upload file: %s", respBody)
 }

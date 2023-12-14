@@ -98,11 +98,11 @@ func (s *Signer) Presign(method, bucket, filename, duration string, extraQueryOp
 	// tada
 	signature := hex.EncodeToString(hmacSha256(signingKey, []byte(toSign.String())))
 
-	urlWithPath := strings.Join([]string{
-		endpoint,
-		bucket,
-		filename,
-	}, "/")
+	urlWithPath := endpoint
+	if len(bucket) != 0 {
+		urlWithPath += "/" + bucket
+	}
+	urlWithPath += "/" + filename
 
 	// sprintf to ensure signature is last
 	return fmt.Sprintf("%s?%s&X-Amz-Signature=%s", urlWithPath, qp.Encode(), signature)
