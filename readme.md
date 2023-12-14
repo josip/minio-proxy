@@ -47,13 +47,13 @@ The proxy performs a transparent encrypt/decrypt operation before uploading/down
 Files are encrypted by:
 
 1. Generating a random IV and writing it in cleartext to the output and HMAC
-2. For each 4kb block of the file:
+2. Each 4kb block of the file is:
     1. Encrypted with AES-256 in CTR mode and written to the output.
-    2. Encrypted data is also written to HMAC.
-3. HMAC sum is written to the output.
+    2. Encrypted data is used for HMAC signature.
+3. HMAC signature is written to the output.
 
 File format:
 
-```
-<random iv|16b><encrypted content|variable size><hmac sum|32b>
-```
+|      | Random IV | Encrypted content | HMAC sum |
+|------|-----------|-------------------|----------|
+| size | 16B       | variable          | 32B      |
